@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Civil AI - Your Legal Companion</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- AOS: Animate on Scroll -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+</head>
+
+
+<body>
+
+  <nav class="navbar" data-aos="fade-down">
+    <div class="container nav-container">
+      <div class="logo">⚖️ <span>Civil AI</span></div>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#features">Modules</a>
+        <a href="#how">How It Works</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="/login">Login</a>
+        <a href="/signup" class="btn btn-outline">Sign Up</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container hero-content">
+      <div class="hero-text" data-aos="fade-right">
+        <h1>Protecting <em>Your Legal Interests</em> Across India</h1>
+        <p>Whether you're a citizen seeking help, a student learning your rights, or a small business needing guidance — Civil AI is here with answers.</p>
+        <ul class="hero-list">
+          <li>• Legal Info Assistant</li>
+          <li>• Document Builder & Form Guide</li>
+          <li>• Cybersecurity Advisor</li>
+        </ul>
+        <a href="/feature" class="btn-glow">Free Legal Help</a>
+      </div>
+      <div class="hero-image" data-aos="fade-left">
+        <img src="/static/img/law-Picsart-BackgroundRemover.webp" alt="Justice statue">
+      </div>
+    </div>
+  </header>
+
+  <div id="vanta-bg" class="vanta-background">
+    <section id="about" class="about-section">
+    <div class="container">
+      <h2>About <span class="about-highlight">Civil AI</span></h2>
+      <p>
+        <span class="about-highlight">Civil AI</span> is your intelligent legal assistant — built to simplify access to justice
+        across India. Whether you're a citizen seeking clarity, a student studying law,
+        or a business handling legal formalities, we help bridge the gap between you and the law
+        with clear, AI-powered assistance.
+      </p>
+    </div>
+  </section>
+
+    <section id="features" class="features-section">
+      <div class="container">
+        <h2 data-aos="fade-up">Core Modules</h2>
+        <div class="feature-grid">
+          <div class="feature-card" data-aos="zoom-in" data-aos-delay="100">
+            <div class="icon-circle">📜</div>
+            <h3>Legal Info Assistant</h3>
+            <p>Ask legal questions in simple language. Understand laws, rights, and procedures.</p>
+          </div>
+          <div class="feature-card" data-aos="zoom-in" data-aos-delay="200">
+            <div class="icon-circle">🧾</div>
+            <h3>Govt. Document Guide</h3>
+            <p>Step-by-step guides for PAN, Aadhaar, Passport, and more — all in one place.</p>
+          </div>
+          <div class="feature-card" data-aos="zoom-in" data-aos-delay="300">
+            <div class="icon-circle">📄</div>
+            <h3>Legal Document Builder</h3>
+            <p>Generate affidavits, rental agreements, NDAs and more with AI assistance.</p>
+          </div>
+          <div class="feature-card" data-aos="zoom-in" data-aos-delay="400">
+            <div class="icon-circle">📝</div>
+            <h3>Form Generator</h3>
+            <p>Fill, auto-complete, and download multi-purpose legal and government forms.</p>
+          </div>
+          <div class="feature-card" data-aos="zoom-in" data-aos-delay="500">
+            <div class="icon-circle">🛡️</div>
+            <h3>Cybersecurity Advisor</h3>
+            <p>Get cyber-legal advice, report frauds, and learn online safety best practices.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how" class="how-section" data-aos="fade-up">
+      <div class="container">
+        <h2>How It Works</h2>
+        <div class="timeline">
+          <div class="timeline-step" data-aos="fade-right">1. Choose a Module or Ask a Question</div>
+          <div class="timeline-step" data-aos="fade-right" data-aos-delay="100">2. Civil AI Analyzes and Responds</div>
+          <div class="timeline-step" data-aos="fade-right" data-aos-delay="200">3. You Receive Document, Guide, or Action Steps</div>
+          <div class="timeline-step" data-aos="fade-right" data-aos-delay="300">4. Download, Print, or Act</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="testimonials" class="testimonials-section">
+      <div class="container">
+        <h2 data-aos="fade-up">Sample AI Answers</h2>
+        <div class="testimonial-card" data-aos="fade-left">
+          <p><strong>Q:</strong> Can I be arrested without a warrant in India?<br><strong>A:</strong> Yes, under certain conditions like when a person is caught committing a cognizable offense, a police officer can arrest without a warrant under Section 41 of the CrPC.</p>
+        </div>
+        <div class="testimonial-card" data-aos="fade-left" data-aos-delay="150">
+          <p><strong>Q:</strong> How can I make a rent agreement online?<br><strong>A:</strong> You can use Civil AI's Document Builder to generate a legally valid rental agreement. Fill in tenant, landlord, and property details, and download the document in PDF.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer class="footer" data-aos="fade-up">
+    <div class="container">
+      <p>© 2025 Civil AI. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms of Use</a>
+        <a href="/contact">Contact Us</a>
+        <a href="/chat" class="btn btn-small">Start Chat</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 1000, offset: 100, once: true });
+  </script>
+
+    <!-- Back to Top Button -->
+<button id="backToTop" onclick="scrollToTop()">↑ Top</button>
+
+<!-- Floating Chatbot -->
+<a href="/chat" class="chatbot-button" title="Chat with AI">💬</a>
+
+<script>
+  // Show back-to-top button
+  window.addEventListener('scroll', function () {
+    const btn = document.getElementById('backToTop');
+    if (window.scrollY > 300) {
+      btn.style.display = 'block';
+    } else {
+      btn.style.display = 'none';
+    }
+  });
+
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 1000, offset: 100, once: false });
+  </script>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.124.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
+<script>
+  VANTA.GLOBE({
+    el: "#vanta-bg",
+    mouseControls: true,
+    touchControls: true,
+    gyroControls: false,
+    minHeight: 200.00,
+    minWidth: 200.00,
+    scale: 1.2,
+    scaleMobile: 1.0,
+    color: 0xcd853f,         // Legal golden hue
+    backgroundColor: 0xfaf3e0, // Subtle parchment
+
+    size: 1.2,
+
+  })
+
+
+
+</script>
+    
+</body>
+
+</html>

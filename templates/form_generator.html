@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Form Generator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f1eae2;
+      padding: 30px;
+      color: #3b2f2f;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: #fffaf5;
+      padding: 35px;
+      border-radius: 14px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease-in-out;
+      border: 1px solid #e3d5c2;
+    }
+
+    h2 {
+      text-align: center;
+      color: #5c4033;
+      margin-bottom: 25px;
+      font-size: 26px;
+    }
+
+    label {
+      display: block;
+      margin-top: 22px;
+      font-weight: 600;
+      color: #4a3a2a;
+    }
+
+    select, textarea, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #cbb5a0;
+      background-color: #fefdfb;
+      transition: border-color 0.3s ease;
+    }
+
+    select:focus,
+    textarea:focus {
+      border-color: #a97457;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(169, 116, 87, 0.2);
+    }
+
+    button {
+      background-color: #6d4c41;
+      color: #fff;
+      border: none;
+      margin-top: 25px;
+      cursor: pointer;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      transition: background-color 0.3s ease, transform 0.2s;
+    }
+
+    button:hover {
+      background-color: #4e342e;
+      transform: scale(1.02);
+    }
+
+    .error {
+      color: #c62828;
+      margin-top: 10px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>📄 Quick Form Generator</h2>
+
+    <form method="POST" action="//form-generator">
+      <label for="form_type">Select Form Type:</label>
+      <select name="form_type" id="form_type">
+        <option value="">-- Select --</option>
+        <option value="declaration">Declaration</option>
+        <option value="application">Application</option>
+        <option value="id_verification">ID Verification</option>
+      </select>
+
+      <label for="details">Enter Required Details:</label>
+      <textarea name="details" id="details" rows="6" placeholder="Enter names, IDs, dates, or other important content..."></textarea>
+
+      {% if error %}
+        <div class="error">{{ error }}</div>
+      {% endif %}
+
+      <button type="submit">Generate & Download</button>
+    </form>
+  </div>
+</body>
+</html>

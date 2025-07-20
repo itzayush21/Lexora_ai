@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Legal Doc Scanner & Q&A</title>
+    <style>
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: #f9f4f0;
+            padding: 30px;
+            color: #4a3e36;
+            animation: fadeInUp 0.6s ease-in-out;
+        }
+
+        .navbar {
+            background-color: #8b5e3c;
+            color: white;
+            padding: 14px 28px;
+            border-radius: 50px;
+            margin: 0 auto 30px;
+            max-width: 720px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: color 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 24px;
+        }
+
+        .navbar a:hover {
+            background-color: #6e4627;
+            transform: scale(1.05);
+            color: #fff8f2;
+        }
+
+        .navbar-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            font-family: 'Georgia', serif;
+            letter-spacing: 0.5px;
+        }
+
+        .container {
+            background: #fffdfc;
+            max-width: 720px;
+            margin: auto;
+            padding: 32px;
+            border-radius: 14px;
+            box-shadow: 0 4px 16px rgba(80, 60, 40, 0.1);
+            border: 1px solid #e6dcd4;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        h2,
+        h3 {
+            text-align: center;
+            color: #5c4430;
+            font-weight: bold;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease;
+        }
+
+        label {
+            display: block;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #5c4430;
+            animation: fadeInUp 1s ease;
+        }
+
+        input[type="file"],
+        textarea,
+        input[type="text"] {
+            width: 100%;
+            margin-top: 8px;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #c9b7a2;
+            background: #fefcf9;
+            color: #4a3e36;
+            box-sizing: border-box;
+            animation: fadeInUp 1s ease;
+        }
+
+        textarea {
+            line-height: 1.5;
+        }
+
+        button {
+            background-color: #8b5e3c;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            animation: fadeInUp 1s ease;
+        }
+
+        button:hover {
+            background-color: #6e4627;
+        }
+
+        .chat-box {
+            margin-top: 30px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .qa {
+            margin-top: 14px;
+            padding: 14px;
+            background: #f8f2ec;
+            border-left: 4px solid #8b5e3c;
+            border-radius: 8px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .user-question {
+            font-weight: bold;
+            color: #3e2d20;
+        }
+
+        .ai-answer {
+            margin-top: 8px;
+            color: #4e3c2a;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div class="navbar-title">Lexora Ai</div>
+        <a href="/feature">🏠 Home</a>
+    </div>
+
+    <div class="container">
+        <h2>📄 Legal Document Scanner & Q&A</h2>
+
+        <!-- Step 1: Upload Document -->
+        <form id="uploadForm" enctype="multipart/form-data">
+            <label for="documentFile">Upload Legal Document (PDF/Image):</label>
+            <input type="file" id="documentFile" name="documentFile" accept=".pdf, .png, .jpg, .jpeg" required />
+            <button type="button" onclick="extractInfo()">🔍 Extract Info</button>
+        </form>
+
+        <!-- Extracted Info Area -->
+        <div id="extractedInfo" style="display:none;">
+            <h3>📑 Extracted Information:</h3>
+            <textarea id="extractedText" readonly rows="10"></textarea>
+        </div>
+
+        <!-- Step 2: Legal Q&A -->
+        <div id="qaSection" style="display:none;" class="chat-box">
+            <h3>❓ Ask Questions About the Document</h3>
+            <input type="text" id="userQuestion" placeholder="Example: What is the term of this agreement?" />
+            <button onclick="askQuestion()">Ask</button>
+
+            <div id="qaOutput"></div>
+        </div>
+    </div>
+
+    <script>
+        function extractInfo() {
+            const fileInput = document.getElementById("documentFile");
+            if (!fileInput.files.length) {
+                alert("Please upload a document first.");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("document", fileInput.files[0]);
+
+            fetch("/extract-info", {
+                method: "POST",
+                body: formData,
+            })
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById("extractedText").value = data.text;
+                    document.getElementById("extractedInfo").style.display = "block";
+                    document.getElementById("qaSection").style.display = "block";
+                })
+                .catch(err => {
+                    alert("Error extracting info.");
+                    console.error(err);
+                });
+        }
+
+        function askQuestion() {
+            const question = document.getElementById("userQuestion").value.trim();
+            const context = document.getElementById("extractedText").value;
+
+            if (!question) {
+                alert("Enter a question.");
+                return;
+            }
+
+            fetch("/ask", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ question, context })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    const qaDiv = document.createElement("div");
+                    qaDiv.className = "qa";
+                    qaDiv.innerHTML = `
+          <div class="user-question">Q: ${question}</div>
+          <div class="ai-answer">A: ${data.answer}</div>
+        `;
+                    document.getElementById("qaOutput").appendChild(qaDiv);
+                    document.getElementById("userQuestion").value = "";
+                })
+                .catch(err => {
+                    alert("Failed to get answer.");
+                    console.error(err);
+                });
+        }
+    </script>
+</body>
+
+</html>
