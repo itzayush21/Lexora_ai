@@ -1,6 +1,8 @@
 from flask import Flask, render_template
 from flask import request, jsonify
 
+from agent.legal_assistant import legal_chat
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -24,17 +26,9 @@ def get_response():
     user_msg = request.json.get("message")
     
     # Simulated basic legal AI reply (replace with real model/API)
-    response = legal_ai_response(user_msg)
+    response = legal_chat(user_msg)
     return jsonify({"reply": response})
 
-def legal_ai_response(query):
-    # Placeholder logic – replace with real RAG model or OpenAI/Gemini calls
-    if "FIR" in query.lower():
-        return "An FIR (First Information Report) is a written document prepared by the police when they receive information about a cognizable offence."
-    elif "divorce" in query.lower():
-        return "In India, divorce is governed by various personal laws. The Hindu Marriage Act, 1955 allows for both mutual and contested divorce."
-    else:
-        return "I'm an AI Legal Assistant. Please ask a specific question related to Indian law, like 'How to file an FIR?'"
     
 
 @app.route("/doc-builder")
