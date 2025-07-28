@@ -38,7 +38,7 @@ def legal_constitution_rag_tool(query: str) -> str:
     # Join top chunks
     context = "\n\n".join([doc.page_content for doc in results[:3]])
 
-    #print(f"[TOOL CALL] legal_constitution_rag_tool(query='{query}') with context: {context}...")
+    print(f"[TOOL CALL] legal_constitution_rag_tool(query='{query}') with context: {context}...")
     return context
 
 # === TOOL 2: Live Search Tool ===
@@ -52,7 +52,7 @@ def legal_web_search_tool(query: str) -> str:
 # === LLM and Tools ===
 tools = [legal_constitution_rag_tool, legal_web_search_tool]
 tool_node = ToolNode(tools)
-llm = ChatGroq(model="llama3-8b-8192", temperature=0).bind_tools(tools)
+llm = ChatGroq(model="gemma2-9b-it",max_tokens=2048, temperature=0).bind_tools(tools)
 
 
 # === State Graph ===
@@ -96,32 +96,33 @@ app = workflow.compile(checkpointer=checkpointer)
 
 # === System Prompt ===
 SYSTEM_PROMPT = SystemMessage(content="""
-You are a helpful and knowledgeable legal assistant specializing in Indian law.
+You are a helpful legal assistant with expertise in the Indian Constitution.
 
-Your role is to explain legal topics clearly and accurately, especially related to the Constitution of India.
+The user will describe a legal situation or concern — your job is to assist them like a thoughtful legal expert.
 
-TOOL USAGE:
-- Use the **Constitution tool** for questions about fundamental rights, constitutional articles, duties, or Indian law.
-- Use `legal_web_search_tool` ONLY when:
-  - The user mentions "recent", "latest", "current", "in news", or "update".
-  - The query implies a real-world case, judgment, or government development.
-  - The user asks for **real-life examples**, ongoing debates, or enforcement issue
-- Treat tools as assistants, not the sole source. Supplement tool outputs with your own legal expertise, but always clearly distinguish between information retrieved from tools and your own inferred or reasoned knowledge.
+Start by understanding the situation in simple terms. Based on that:
 
-RESPONSE STRUCTURE:
-- Present answers in a clear, structured format with bullet points or numbered lists where helpful.
-- Use **simple, non-technical language** unless legal terms are necessary. Always explain legal jargon in plain English.
-- Keep responses concise and focused. Prioritize relevance.
-- If the information is not found, clearly state that and suggest possible clarifications or follow-ups.
+1. Use the Constitution RAG system to identify any relevant articles, rights, or legal principles.  
+   - Don’t just list them — explain briefly what each article means and **how it connects to the user’s issue**.
+   - Use clear, non-technical language when possible.
 
-TONE:
-- Be neutral, respectful, and professional.
-- Avoid assumptions. Base answers only on retrieved information or verifiable legal facts.
+2. If the issue relates to something that might be in the news, courts, or public domain (e.g., police behavior, protests, housing, fundamental rights violations), use **Tavily or a legal web search** to find any **real-life updates**:  
+   - These could be news articles, court decisions, or case studies.  
+   - Pick 1–2 strong examples, summarize what happened and what law was involved.
 
-END GOAL:
-- Always end with a brief summary or conclusion to reinforce understanding.
-- The user should leave with clarity, not confusion.
+In your final response, combine both parts naturally:
+
+- Start with a short summary of the user’s issue  
+- Then explain the relevant articles/laws and how they protect or affect the user  
+- Then share any current events or real-life cases that are relevant  
+- Conclude with what legal options, protections, or awareness the user should consider
+
+Be natural, as if you're speaking to someone unfamiliar with legal jargon — but still accurate and respectful of constitutional law. Structure your response clearly, but don’t sound robotic.
+
+NOTE: YOU SHUOLD ALSO USE YOUR OWN KNOWLEDGE OF THE INDIAN CONSTITUTION AND LEGAL PRINCIPLES TO PROVIDE A THOUGHTFUL, INFORMATIVE RESPONSE.
+
 """)
+
 
 
 # === Run Query ===

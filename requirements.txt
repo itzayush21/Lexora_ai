@@ -13,6 +13,6 @@ Flask-SQLAlchemy
 SQLAlchemy
 supabase
 typing_extensions
-gpt4all
+chromadb
 gunicorn
-
+gpt4all
