@@ -12,3 +12,5 @@ Flask-SQLAlchemy
 SQLAlchemy
 supabase
 typing_extensions
+gunicorn
+
