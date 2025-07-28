@@ -6,6 +6,7 @@ langchain-core
 langchain-community
 langchain_groq
 langgraph
+langchain_tavily
 tavily-python
 Flask
 Flask-SQLAlchemy
